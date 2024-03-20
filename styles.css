@@ -8,23 +8,23 @@ header, #forms{
 }
 body{
     background-color: rgba(0, 204, 255, 0.438);
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 #groupedBody, #ungroupedBody{
-    width: 50em;
+    width: 60vw;
     height: 20%;
     margin: 20px 40px 20px 40px;
     padding: 20px 10px 20px 10px;
     border-radius: 10px;
     border:1px blue ridge;
-    
 }
 button{
     margin: 10px 50px;
-    width: 20%;
+    width: 30%;
     height: 10%;
 }
 #forms input{
-    width: 50em;
+    width: 60%;
     height: 3em;
     padding-left: 50px;
 }
