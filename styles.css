@@ -1,0 +1,30 @@
+header, #forms{
+    margin: 3em auto;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+body{
+    background-color: rgba(0, 204, 255, 0.438);
+}
+#groupedBody, #ungroupedBody{
+    width: 50em;
+    height: 20%;
+    margin: 20px 40px 20px 40px;
+    padding: 20px 10px 20px 10px;
+    border-radius: 10px;
+    border:1px blue ridge;
+    
+}
+button{
+    margin: 10px 50px;
+    width: 20%;
+    height: 10%;
+}
+#forms input{
+    width: 50em;
+    height: 3em;
+    padding-left: 50px;
+}
