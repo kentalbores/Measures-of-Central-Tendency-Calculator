@@ -3,7 +3,7 @@ const groupedButton = document.querySelector("#groupedButton");
 const groupedBody = document.querySelector("#groupedBody");
 const ungroupedBody = document.querySelector("#ungroupedBody");
 const output = document.querySelector("#output");
-let calculateButton =  document.querySelector("#calculateGrouped");
+let calculateButton =  document.querySelector("#calculateUngrouped");
 let values;
 
 ungroupedButton.addEventListener("change", function(){
