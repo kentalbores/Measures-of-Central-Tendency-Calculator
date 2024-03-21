@@ -7,9 +7,6 @@ const output = document.querySelector("#output");
 const calculateButton =  document.querySelector("#calculateUngrouped");
 let values;
 
-document.querySelector("#groups").value = "1-9,10-19,20-29,30-39,40-49"
-document.querySelector("#frequency").value = "5,7,2,8,6"
-
 const outputGrouped = document.querySelector("#outputGrouped");
 const calculateGroupedButton = document.querySelector("#calculateGrouped");
 
