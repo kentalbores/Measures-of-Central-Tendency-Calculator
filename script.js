@@ -82,7 +82,7 @@ calculateGroupedButton.addEventListener("click", function(){
     mean = summFX/cf[cf.length-1];
     median = lb[medianClassIndex] + (((cf[cf.length-1]/2)-cf[medianClassIndex-1])/frequency[medianClassIndex]) * i;
     d1 = cf[modalClassIndex] - cf[modalClassIndex-1]; d2 = cf[modalClassIndex] - cf[modalClassIndex+1];
-    mode = d1/(d1+d2);
+    mode = lb+(d1/(d1+d2))*i
 
 
     let summationFXMean = 0, sampleStandardDeviation, sampleVariance, populationStandardDeviation, populationVariance;
