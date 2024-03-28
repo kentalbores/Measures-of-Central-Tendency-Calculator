@@ -32,7 +32,7 @@ calculateButton.addEventListener("click",function(){
     const data = document.querySelector("#ungroupedData").value;
     values = data.split(",");
     values.includes("") ? values.pop() : console.log("no error");
-    values = values.map(element => parseInt(element));
+    values = values.map(element => parseFloat(element));
     console.log(values)
     answers = getAnswer(values);
     output.innerHTML = answers;
@@ -48,13 +48,37 @@ calculateGroupedButton.addEventListener("click", function(){
     //f[]
     frequency = document.querySelector("#frequency").value.split(",").map(element => parseInt(element));
 
+    
+
     //x
     x = ranges.map(element => {
         return (element[1]+element[0])/2
     })
-
     //i
-    i = (ranges[0][1] - ranges[0][0]) + 1
+
+    //get absolute value to allow reverse order
+    i = Math.abs(ranges[0][1] - ranges[0][0]) + 1;
+    
+    let checkI = ranges.every( function (element) {return element != ranges.every(element => {return element})});
+    //check if i is equal in every range
+    
+    checkI = ranges.every( element => {
+            element = element.reduce( function(prevI, element) {
+            return Math.abs(element - prevI) + 1;
+        })
+        return element == i && checkI;
+    });
+
+    console.log(checkI);
+    Math.abs(checkI);
+
+
+    //error trapping
+    if(frequency.length != ranges.length)
+        return alert("Number of Range values are not equal to Frequency!");
+    if(i <= 1 || !checkI)
+        return alert("Invalid Interval for Range!");
+
 
     //lb[],cf[], summFX, done  medianclassindex, modalclassindex, i
     ranges.forEach(element => {
@@ -80,9 +104,18 @@ calculateGroupedButton.addEventListener("click", function(){
     }
 
     mean = summFX/cf[cf.length-1];
-    median = lb[medianClassIndex] + (((cf[cf.length-1]/2)-cf[medianClassIndex-1])/frequency[medianClassIndex]) * i;
-    d1 = cf[modalClassIndex] - cf[modalClassIndex-1]; d2 = cf[modalClassIndex] - cf[modalClassIndex+1];
-    mode = lb+(d1/(d1+d2))*i
+
+    //checks special cases where there is no prev median nor prev/next modal index
+    const cfMedian0 = cf[medianClassIndex-1] != undefined ? cf[medianClassIndex-1] : 0;
+    const fMode0 = frequency[modalClassIndex-1] != undefined ? frequency[modalClassIndex-1] : 0;
+    const fMode2 = frequency[modalClassIndex+1] != undefined ? frequency[modalClassIndex+1] : 0;
+
+    
+    median = lb[medianClassIndex] + (((cf[cf.length-1]/2)-cfMedian0)/frequency[medianClassIndex]) * i;
+    d1 = frequency[modalClassIndex] - fMode0; d2 = frequency[modalClassIndex] - fMode2;
+    
+    mode = lb[modalClassIndex] + (d1/(d1+d2)) * i;
+
 
 
     let summationFXMean = 0, sampleStandardDeviation, sampleVariance, populationStandardDeviation, populationVariance;
@@ -127,7 +160,14 @@ function getAnswer(numbers){
     numbers.forEach(number => {
         summation += number;
     })
+    numbers.sort((a, b) => a - b);
     const mean = summation/n;
+    const medianFactor = Math.floor(numbers.length/2);
+    let median = numbers.length/2 % 2 == 0 ? (numbers[medianFactor - 1] 
+    + numbers[medianFactor])/2 : numbers[medianFactor];
+    console.log(numbers);
+    const range = numbers[numbers.length-1] - numbers[0];
+
     numbers.forEach(number => {
         summationXMean += (number - mean)**2;
         console.log(summationXMean);
@@ -139,6 +179,8 @@ function getAnswer(numbers){
 
     const element = `
         <p>Mean = <b>${mean}</b></p>
+        <p>Median = <b>${median}</b></p>
+        <p>Range = <b>${range}</b></p>
         <p>Summation of x = <b>${summation}</b></p>
         <p>Summation of x - x^2 = <b>${summationXMean}</b></p>
         <p>Sample Variance = <b>${sampleVariance}</b></p>
